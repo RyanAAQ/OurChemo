@@ -2,6 +2,24 @@
 
 A full-stack pharmacy management system built with **Spring Boot 3 + MongoDB** on the backend and **React 18 + TypeScript + Vite** on the frontend.
 
+## What it does
+
+ourChemo helps a pharmacy keep track of the drugs it stocks and record every sale, so the shelf count and the sales history always agree.
+
+**A typical day looks like this:**
+
+1. **A chemist signs up and logs in.** Every action that changes stock needs a logged-in chemist, and the front end blocks the app pages until you log in.
+2. **Stock comes in.** The chemist adds a drug (name, generic name, brand, strength, dosage form, unit price) together with a **batch**: how many units arrived, what they cost, and the expiry date. Restocking a drug with the same expiry date adds to the latest batch; a different expiry date creates a new batch, so old and new stock are never mixed up.
+3. **A customer buys.** On the Dispense page the chemist picks drugs from a batch-aware selector and builds a cart. When they confirm, the system checks that each drug exists and that there is enough stock, then reduces the stock of both the drug and the chosen batch, and works out each item's price and the sale total.
+4. **The sale is recorded.** Each sale is saved with the items sold, the date and time, and which chemist dispensed it. The History page lists past sales, newest first, with an itemised breakdown and total revenue.
+5. **Inventory stays easy to manage.** The Inventory page lists all drugs A to Z, lets you search by name, generic name or brand, edit the brand or price, or delete a drug along with its batches.
+
+If something can't happen (unknown drug, not enough stock, not logged in), the API refuses with a clear message and nothing is changed, and the front end shows that message to the user.
+
+## Tests
+
+The service layer has JUnit tests for authentication (`AuthServicesImplTest`) and for inventory and dispensing (`DrugInventoryServicesImplTest`). Run them with `mvn test`.
+
 ---
 
 ## Features
